@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  node:
+    build:
+      context: ./infra/node/
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:password@postgresdb/db
+    volumes:
+      - ./app:/app
+    command: nest start --watch
+
+  postgresdb:
+    build:
+      context: ./infra/postgresdb/
+    ports:
+      - "5432:5432"
